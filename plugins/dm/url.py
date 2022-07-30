@@ -24,9 +24,10 @@ from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 try:
-    import pdfkit
-except Exception:
+    import pdfkit, re
     urlSupport = True
+except Exception:
+    urlSupport = False
 
 reply_markup = InlineKeyboardMarkup(
                      [[
