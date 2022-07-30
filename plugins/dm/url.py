@@ -144,7 +144,7 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-        if "." in url and urlSupport:
+        if "." in url & urlSupport & " " not in url:
             try:
                 outputName = pattern.sub(r'\3', url)
                 
@@ -156,7 +156,7 @@ async def _url(bot, message):
                                                       reply_markup = InlineKeyboardMarkup(
                                                               [[
                                                                   InlineKeyboardButton(
-                                                                      "Open In Browser", url = f"{url}" if ' ' not in url else "nohello.com"
+                                                                      "Open In Browser", url = f"{url}"
                                                                   )
                                                               ]]
                                                           ),
