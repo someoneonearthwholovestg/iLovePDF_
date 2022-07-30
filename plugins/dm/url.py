@@ -9,7 +9,7 @@ logging.basicConfig(
                    format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
                    )
 
-import os
+import os, pdfkit
 from pdf import PROCESS
 from asyncio import sleep
 from pyrogram import filters
@@ -139,7 +139,16 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-            
+        pdfkit.from_url(url, "output.pdf")
+        logFile = await callbackQuery.message.reply_document(
+                                              document = "output.pdf",
+                                              progress = getPDF,
+                                              progress_args = (
+                                                              callbackQuery.message, 0, 
+                                                              "UPLOADED"
+                                                              )
+                                              )
+        await footer(callbackQuery.message, logFile)
         return await data.edit(
                               "Please Send Me A Direct Telegram PDF Url"
                               )
