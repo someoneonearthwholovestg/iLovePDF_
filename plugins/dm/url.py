@@ -146,17 +146,15 @@ async def _url(bot, message):
                                   )
         if "." in url and urlSupport:
             try:
-                outputName = pattern.sub(r'\1', url)
-                logger.debug(f"1st: {outputName}")
-                outputName = pattern.sub(r'\2', url)
-                logger.debug(f"2st: {outputName}")
                 outputName = pattern.sub(r'\3', url)
-                logger.debug(f"3st: {outputName}")
                 
                 pdfkit.from_url(url, f"{message.message_id}.pdf")
                 logFile = await message.reply_document(
                                                       document = f"{message.message_id}.pdf",
-                                                      file_name = f"{outputName}.pdf"
+                                                      file_name = f"{outputName}.pdf",
+                                                      caption = f"Url: `url`\n"
+                                                                 "[One In Browser](url)",
+                                                      quote = True
                                                       )
                 await data.delete()
                 await footer(message, logFile)
