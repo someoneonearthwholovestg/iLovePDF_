@@ -71,7 +71,7 @@ async def getPDF(current, t, message, total=0, typ="DOWNLOADED"):
                     filters.text
                     )
 async def _url(bot, message):
-    
+    try:
         await message.reply_chat_action(
                                        "typing"
                                        )
@@ -145,17 +145,27 @@ async def _url(bot, message):
                                   disable_web_page_preview = True
                                   )
         if "." in url and urlSupport:
-            pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
-            outputName = pattern.sub(r'\3', url)
-            pdfkit.from_url(url, f"{message.message_id}.pdf")
-            logFile = await message.reply_document(
-                                                  document = f"{message.message_id}.pdf",
-                                                  file_name = f"{outputName}.pdf"
-                                                  )
-            await footer(message, logFile)
-            os.remove(f"{message.message_id}.pdf")
-            await data.delete()
+            try:
+                pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
+                outputName = pattern.sub(r'\3', url)
+                pdfkit.from_url(url, f"{message.message_id}.pdf")
+                logFile = await message.reply_document(
+                                                      document = f"{message.message_id}.pdf",
+                                                      file_name = f"{outputName}.pdf"
+                                                      )
+                await data.delete()
+                await footer(message, logFile)
+                os.remove(f"{message.message_id}.pdf")
+                return
+            except Exception as e:
+                await data.edit("`Some Thing Went Wrong =(`")
+                os.remove(f"{message.message_id}.pdf")
         return await data.edit("send me a url or direct telegram pdf links")
+    except Exception as e:
+        logger.exception(
+                        "url:CAUSES %(e)s ERROR",
+                        exc_info=True
+                        )
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 
@@ -244,7 +254,7 @@ async def _getFile(bot, callbackQuery):
     except Exception as e:
         PROCESS.remove(callbackQuery.from_user.id); os.remove(location)
         logger.exception(
-                        "BAN_USER:CAUSES %(e)s ERROR",
+                        "url:CAUSES %(e)s ERROR",
                         exc_info=True
                         )
 
