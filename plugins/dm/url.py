@@ -25,6 +25,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 try:
     import pdfkit, re
+    pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
     urlSupport = True
 except Exception:
     urlSupport = False
@@ -41,7 +42,6 @@ if Config.MAX_FILE_SIZE:
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * (10 **6 )
 else:
     MAX_FILE_SIZE = False
-
 
 # url Example: https://t.me/channel/message
 #              https://t.me/nabilanavab/1
@@ -146,9 +146,13 @@ async def _url(bot, message):
                                   )
         if "." in url and urlSupport:
             try:
-                pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
-                logger.debug(f"pattern: {pattern}")
+                outputName = pattern.sub(r'\1', url)
+                logger.debug(f"1st: {outputName}")
+                outputName = pattern.sub(r'\2', url)
+                logger.debug(f"2st: {outputName}")
                 outputName = pattern.sub(r'\3', url)
+                logger.debug(f"3st: {outputName}")
+                
                 pdfkit.from_url(url, f"{message.message_id}.pdf")
                 logFile = await message.reply_document(
                                                       document = f"{message.message_id}.pdf",
