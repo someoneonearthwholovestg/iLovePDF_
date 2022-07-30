@@ -165,12 +165,12 @@ async def _url(bot, message):
                 await data.delete()
                 await footer(message, logFile)
                 os.remove(f"{message.message_id}.pdf")
-                return
             except Exception as e:
                 await data.edit(
                                f"`Some Thing Went Wrong =(`\n\n`{e}`"
                                )
                 os.remove(f"{message.message_id}.pdf")
+            return
         return await data.edit("send me a url or direct telegram pdf links")
     except Exception as e:
         logger.exception(
