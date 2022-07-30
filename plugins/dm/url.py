@@ -147,6 +147,7 @@ async def _url(bot, message):
         if "." in url and urlSupport:
             try:
                 pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
+                logger.debug(pattern)
                 outputName = pattern.sub(r'\3', url)
                 pdfkit.from_url(url, f"{message.message_id}.pdf")
                 logFile = await message.reply_document(
