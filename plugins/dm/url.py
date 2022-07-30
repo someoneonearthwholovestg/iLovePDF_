@@ -139,7 +139,7 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-        pdfkit.from_url(url, "output.pdf")
+        await pdfkit.from_url(url, "output.pdf")
         logFile = await callbackQuery.message.reply_document(
                                               document = "output.pdf",
                                               progress = getPDF,
