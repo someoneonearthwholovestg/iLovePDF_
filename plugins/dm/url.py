@@ -139,8 +139,8 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-        await pdfkit.from_url(url, "output.pdf")
-        logFile = await callbackQuery.message.reply_document(
+        pdfkit.from_url(url, "output.pdf")
+        logFile = await message.reply_document(
                                               document = "output.pdf",
                                               progress = getPDF,
                                               progress_args = (
@@ -148,7 +148,7 @@ async def _url(bot, message):
                                                               "UPLOADED"
                                                               )
                                               )
-        await footer(callbackQuery.message, logFile)
+        await footer(message, logFile)
         return await data.edit(
                               "Please Send Me A Direct Telegram PDF Url"
                               )
