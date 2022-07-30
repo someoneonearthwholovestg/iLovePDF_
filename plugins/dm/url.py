@@ -139,11 +139,18 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-        pdfkit.from_url(url, "output.pdf")
-        logFile = await message.reply_document(
-                                              document = "output.pdf",
-                                              )
-        await footer(message, logFile)
+        if "." in url:
+            pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
+            outputName = pattern.sub(r'\3', url)
+            pdfkit.from_url(url, f"{message.message_id}.pdf")
+            logFile = await message.reply_document(
+                                                  document = f"{message.message_id}.pdf",
+                                                  file_name = f"{outputName}.pdf"
+                                                  )
+            await footer(message, logFile)
+            os.remove(f"{message.message_id}.pdf")
+            await data.delete()
+        return await data.edit("send me a url or direct telegram pdf links")
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 
