@@ -152,8 +152,8 @@ async def _url(bot, message):
                 logFile = await message.reply_document(
                                                       document = f"{message.message_id}.pdf",
                                                       file_name = f"{outputName}.pdf",
-                                                      caption = f"Url: `url`\n"
-                                                                 "[One In Browser](url)",
+                                                      caption = f"Url: `{url}`\n"
+                                                                f"[One In Browser]({url})",
                                                       quote = True
                                                       )
                 await data.delete()
