@@ -142,10 +142,6 @@ async def _url(bot, message):
         pdfkit.from_url(url, "output.pdf")
         logFile = await message.reply_document(
                                               document = "output.pdf",
-                                              progress = getPDF,
-                                              progress_args = (
-                                                              message, 0, "UPLOADED"
-                                                              )
                                               )
         await footer(message, logFile)
 
