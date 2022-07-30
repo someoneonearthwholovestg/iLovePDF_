@@ -66,7 +66,7 @@ async def getPDF(current, t, message, total=0, typ="DOWNLOADED"):
                     filters.text
                     )
 async def _url(bot, message):
-    try:
+    
         await message.reply_chat_action(
                                        "typing"
                                        )
@@ -148,12 +148,6 @@ async def _url(bot, message):
                                                               )
                                               )
         await footer(message, logFile)
-    except Exception as e:
-        return await data.edit("__Check Url, Not a PDF File__ 🥲")
-        logger.exception(
-                        "URL:CAUSES %(e)s ERROR",
-                        exc_info=True
-                        )
 
 getFile = filters.create(lambda _, __, query: query.data == "getFile")
 
