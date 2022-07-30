@@ -144,8 +144,7 @@ async def _url(bot, message):
                                               document = "output.pdf",
                                               progress = getPDF,
                                               progress_args = (
-                                                              callbackQuery.message, 0, 
-                                                              "UPLOADED"
+                                                              callbackQuery.message, 0, "UPLOADED"
                                                               )
                                               )
         await footer(message, logFile)
