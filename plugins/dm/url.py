@@ -149,9 +149,6 @@ async def _url(bot, message):
                                                               )
                                               )
         await footer(message, logFile)
-        return await data.edit(
-                              "Please Send Me A Direct Telegram PDF Url"
-                              )
     except Exception as e:
         return await data.edit("__Check Url, Not a PDF File__ 🥲")
         logger.exception(
