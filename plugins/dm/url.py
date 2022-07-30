@@ -9,7 +9,7 @@ logging.basicConfig(
                    format="%(levelname)s:%(name)s:%(message)s" # %(asctime)s:
                    )
 
-import os, pdfkit
+import os
 from pdf import PROCESS
 from asyncio import sleep
 from pyrogram import filters
@@ -23,13 +23,17 @@ from plugins.footer import header, footer
 from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+try:
+    import pdfkit
+except Exception:
+    urlSupport = True
+
 reply_markup = InlineKeyboardMarkup(
                      [[
                              InlineKeyboardButton("🧭 Get PDF File 🧭",
                                              callback_data = "getFile")
                      ]]
                )
-
 
 if Config.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
@@ -139,7 +143,7 @@ async def _url(bot, message):
                                   reply_markup = reply_markup if file.document.file_name[-4:] == ".pdf" else None,
                                   disable_web_page_preview = True
                                   )
-        if "." in url:
+        if "." in url and urlSupport:
             pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
             outputName = pattern.sub(r'\3', url)
             pdfkit.from_url(url, f"{message.message_id}.pdf")
