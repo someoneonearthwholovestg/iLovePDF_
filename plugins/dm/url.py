@@ -156,7 +156,7 @@ async def _url(bot, message):
                                                       reply_markup = InlineKeyboardMarkup(
                                                               [[
                                                                   InlineKeyboardButton(
-                                                                      "Open In Browser", url = f"{url}"
+                                                                      "Open In Browser", url = f"{url}" if ' ' not in url else "nohello.com"
                                                                   )
                                                               ]]
                                                           ),
