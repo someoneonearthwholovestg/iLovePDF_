@@ -24,8 +24,7 @@ from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 try:
-    import pdfkit, re
-    pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
+    import pdfkit
     urlSupport = True
 except Exception:
     urlSupport = False
@@ -171,7 +170,8 @@ async def _url(bot, message):
                 await data.edit(
                                f"`Some Thing Went Wrong =(`\n\n`{e}`"
                                )
-                try: os.remove(f"{message.message_id}.pdf"); except: pass
+                try: os.remove(f"{message.message_id}.pdf")
+                except Exception: pass
             return
         return await data.edit("send me any url or direct telegram pdf links")
     except Exception as e:
