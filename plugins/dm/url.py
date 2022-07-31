@@ -24,7 +24,8 @@ from plugins.fileSize import get_size_format as gSF
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 try:
-    import pdfkit
+    import pdfkit, re
+    pattern = re.compile(r'(https?://|www\.)?(www\.)?([a-z0-9-]+)(\..+)?')
     urlSupport = True
 except Exception:
     urlSupport = False
