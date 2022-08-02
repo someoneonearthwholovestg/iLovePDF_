@@ -188,7 +188,13 @@ async def _url(bot, message):
                 os.remove(f"{message.message_id}.pdf")
             except Exception as e:
                 await data.edit(
-                               f"`Some Thing Went Wrong =(`\n\n`{e}`"
+                               f"`Some Thing Went Wrong =(`\n\n`{e}`",
+                               reply_markup = InlineKeyboardMarkup(
+                                           [[
+                                                 InlineKeyboardButton("🚫 Close 🚫",
+                                                         callback_data = "closeALL")
+                                           ]]
+                                      )
                                )
                 try: os.remove(f"{message.message_id}.pdf")
                 except Exception: pass
