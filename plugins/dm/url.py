@@ -76,7 +76,7 @@ async def _url(bot, message):
                                        "typing"
                                        )
         data = await message.reply(
-                                  "__Started Fetching Datas..__\n`It might take some time` ✨",
+                                  "`Started Fetching Datas..`\n`It might take some time` ✨",
                                   quote = True,
                                   reply_markup = InlineKeyboardMarkup(
                                            [[
@@ -157,7 +157,7 @@ async def _url(bot, message):
                 outputName = pattern.sub(r'\3', url)
                 pdfkit.from_url(url, f"{message.message_id}.pdf")
                 await data.edit(
-                               "Almost Done.. ✅\nNow, Started Uploading.. 📤",
+                               "`Almost Done..` ✅\n`Now, Started Uploading..` 📤",
                                reply_markup = InlineKeyboardMarkup(
                                            [[
                                                  InlineKeyboardButton("🚫 Close 🚫",
