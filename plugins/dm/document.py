@@ -26,7 +26,7 @@ from plugins.thumbName import (
                               formatThumb
                               )
 from pyrogram import Client as ILovePDF
-from plugins.["footer"] import footer, header
+from plugins.footer import footer, header
 from plugins.fileSize import get_size_format as gSF
 from plugins.progress import progress, uploadProgress
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -38,6 +38,7 @@ try:
 except Exception:
     wordSupport = False
 
+print("footer : ", footer)
 #--------------->
 #--------> convertAPI INSTANCE
 #------------------->
