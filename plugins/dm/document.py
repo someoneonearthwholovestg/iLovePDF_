@@ -38,7 +38,7 @@ try:
 except Exception:
     wordSupport = False
 
-print("footer : ", footer)
+logger.debug("footer : ", footer)
 #--------------->
 #--------> convertAPI INSTANCE
 #------------------->
